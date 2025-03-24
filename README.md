@@ -14,7 +14,7 @@ End-to-end MLOps project using GCP for credit card fraud detection.
 - `docs` – Changelogs, team notes, or planning
 
 
-## Cloning the Repo and Virtula Enviroment
+## Cloning the Repo and Virtual Enviroment
 
 ```bash
 git clone https://github.com/Stinly/Fraud-Finder.git

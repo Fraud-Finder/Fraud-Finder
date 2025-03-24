@@ -1,0 +1,21 @@
+# Core ML libraries
+pandas
+numpy
+scikit-learn
+xgboost
+
+# Google Cloud SDKs
+google-cloud-storage
+google-cloud-bigquery
+google-cloud-aiplatform  # Vertex AI
+google-cloud-pubsub
+google-cloud-logging
+
+# Web API (for deployment to Cloud Run)
+flask  # or use fastapi if preferred
+
+# Optional but useful
+joblib           # For saving/loading models
+shap             # For explainability
+matplotlib       # For plots (e.g., SHAP)
+google-auth      # For authenticated access to GCP

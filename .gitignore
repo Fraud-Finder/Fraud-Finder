@@ -64,3 +64,5 @@ gcp_logs/
 *.tfstate.*
 .terraform/
 data/creditcard.csv 
+data/creditcard.csv 
+data/creditcard.csv 

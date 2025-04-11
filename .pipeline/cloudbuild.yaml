@@ -1,0 +1,21 @@
+steps:
+# Compile Vertex AI pipeline using your custom image
+- name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
+  id: 'compile-vertex-pipeline'
+  entrypoint: 'python'
+  args: ['vertexai_batch_confusion.py', 'compile']
+
+# Run Vertex AI pipeline using your custom image
+- name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
+  id: 'run-vertex-pipeline'
+  entrypoint: 'python'
+  args: [
+    'vertexai_batch_confusion.py', 'run',
+    '--data_path=gs://ai_ops_final_project25k/creditcard.csv',
+    '--project_id=ai-ops-class',
+    '--region=us-central1',
+    '--export_metrics=True'
+  ]
+  waitFor: ['compile-vertex-pipeline']
+
+timeout: 7200s  # 2 hour timeout

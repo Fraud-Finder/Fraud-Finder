@@ -1,0 +1,11 @@
+apache-beam[gcp]==2.51.0
+pandas
+numpy
+scikit-learn
+xgboost
+kfp
+google-cloud-aiplatform
+matplotlib
+seaborn
+fsspec
+gcsfs

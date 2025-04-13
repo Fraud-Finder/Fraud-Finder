@@ -1,4 +1,9 @@
 steps:
+- name: 'gcr.io/cloud-builders/bash'
+  id: 'check-workspace'
+  entrypoint: 'bash'
+  args: ['-c', 'echo "Listing workspace contents:" && ls -R /workspace']
+
 # Compile Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'compile-vertex-pipeline'

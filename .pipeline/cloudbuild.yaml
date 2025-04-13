@@ -4,6 +4,7 @@ steps:
   id: 'compile-vertex-pipeline'
   entrypoint: 'python'
   args: ['vertexai_pipeline.py', 'compile']
+  dir: '/workspace'
 
 # Run Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
@@ -16,6 +17,7 @@ steps:
     '--region=us-central1',
     '--export_metrics=True'
   ]
+  dir: '/workspace'
   waitFor: ['compile-vertex-pipeline']
 
 timeout: 7200s  # 2 hour timeout

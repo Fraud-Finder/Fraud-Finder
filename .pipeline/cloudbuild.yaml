@@ -3,14 +3,14 @@ steps:
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'compile-vertex-pipeline'
   entrypoint: 'python'
-  args: ['scripts/vertexai_pipeline.py', 'compile']
+  args: ['vertexai_pipeline.py', 'compile']
 
 # Run Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'run-vertex-pipeline'
   entrypoint: 'python'
   args: [
-    'scripts/vertexai_pipeline.py', 'run',
+    'vertexai_pipeline.py', 'run',
     '--data_path=gs://ai_ops_final_project25k/creditcard.csv',
     '--project_id=ai-ops-class',
     '--region=us-central1',

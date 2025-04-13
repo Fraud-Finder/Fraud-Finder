@@ -1,5 +1,5 @@
 # vertex_batch.py - Updated with Confusion Matrix Support
-# train deploy predict with batch prediction
+# train deploy predict with batch prediction 
 
 import pandas as pd
 import numpy as np

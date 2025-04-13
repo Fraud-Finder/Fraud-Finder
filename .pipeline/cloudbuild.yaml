@@ -19,3 +19,5 @@ steps:
   waitFor: ['compile-vertex-pipeline']
 
 timeout: 7200s  # 2 hour timeout
+options:
+  logging: CLOUD_LOGGING_ONLY

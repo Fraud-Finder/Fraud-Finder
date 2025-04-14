@@ -680,7 +680,7 @@ def run_pipeline(args):
         enable_caching=True
     )
     
-    # Run the pipeline
+    # Run the pipeline 1
     job.run()
     print(f"Pipeline job submitted with ID: {job.name}")
     return job

@@ -96,42 +96,45 @@ def split_data(
     import numpy as np
     from sklearn.model_selection import train_test_split
     import os
-    
+
     print(f"Loading preprocessed data from: {processed_data_path.path}")
     # Load the preprocessed data
     df = pd.read_csv(processed_data_path.path)
     print(f"Preprocessed data loaded successfully. Shape: {df.shape}")
-    
+
     # Separate features and target
     X = df.drop(['Class'], axis=1)
     y = df['Class']
-    
+
     # First split: training+validation vs test (80% vs 20%)
     X_train_val, X_test, y_train_val, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
     )
-    
+
     # Second split: training vs validation (75% vs 25% of the training+validation set)
     X_train, X_val, y_train, y_val = train_test_split(
         X_train_val, y_train_val, test_size=0.25, random_state=42, stratify=y_train_val
     )
-    
-    # Save the data splits
-    print(f"Creating training dataset...")
+
+    # Prepare dataframes
     train_df = pd.concat([X_train, pd.DataFrame(y_train, columns=['Class'])], axis=1)
-    print(f"Creating validation dataset...")
     val_df = pd.concat([X_val, pd.DataFrame(y_val, columns=['Class'])], axis=1)
-    print(f"Creating test dataset...")
     test_df = pd.concat([X_test, pd.DataFrame(y_test, columns=['Class'])], axis=1)
-    
-    print(f"Saving training data to: {train_data.path}")
-    train_df.to_csv(train_data.path, index=False)
-    print(f"Saving validation data to: {validation_data.path}")
-    val_df.to_csv(validation_data.path, index=False)
-    print(f"Saving test data to: {test_data.path}")
-    test_df.to_csv(test_data.path, index=False)
-    
-    print(f"Data split completed:")
+
+    # Helper to safely save dataset
+    def save_dataset(df, output_dataset, name):
+        output_path = output_dataset.path
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        df.to_csv(output_path, index=False)
+        print(f"Saved {name} to {output_path}")
+        print(f"  File exists? {os.path.exists(output_path)}")
+
+    # Save all datasets
+    save_dataset(train_df, train_data, "Training Data")
+    save_dataset(val_df, validation_data, "Validation Data")
+    save_dataset(test_df, test_data, "Test Data")
+
+    print("✅ Data splitting completed:")
     print(f"  - Training set size: {len(train_df)}")
     print(f"  - Validation set size: {len(val_df)}")
     print(f"  - Test set size: {len(test_df)}")
@@ -679,7 +682,7 @@ def run_pipeline(args):
         },
         enable_caching=True
     )
-    
+
     
     # Run the pipeline 1
     job.run()

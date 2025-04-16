@@ -38,7 +38,6 @@ This repo contains an end-to-end pipeline that includes:
 - **Looker Studio** – Dashboard for metric visualization
 - **Pub/Sub Simulation** – Real-time prediction setup simulated from batch data
 
-## 🧪 How to Run
 
 ## 🧪 How to Run
 

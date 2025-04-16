@@ -228,3 +228,4 @@ def run(argv=None):
 if __name__ == '__main__':
     print("Starting Dataflow preprocessing pipeline")
     run()
+    

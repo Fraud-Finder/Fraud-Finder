@@ -1,0 +1,6 @@
+flask
+gunicorn
+pandas
+xgboost
+scikit-learn
+google-cloud-storage

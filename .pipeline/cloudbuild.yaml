@@ -1,21 +1,30 @@
 steps:
+# - name: 'ubuntu'
+#   id: 'check-workspace'
+#   entrypoint: 'bash'
+#   args: ['-c', 'echo "Listing workspace contents:" && ls -R /workspace']
+
 # Compile Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'compile-vertex-pipeline'
   entrypoint: 'python'
-  args: ['vertexai_batch_confusion.py', 'compile']
+  args: ['vetexai_pipeline.py', 'compile']
+  dir: '/workspace'
 
 # Run Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'run-vertex-pipeline'
   entrypoint: 'python'
   args: [
-    'vertexai_batch_confusion.py', 'run',
+    'vetexai_pipeline.py', 'run',
     '--data_path=gs://ai_ops_final_project25k/creditcard.csv',
     '--project_id=ai-ops-class',
     '--region=us-central1',
     '--export_metrics=True'
   ]
+  dir: '/workspace'
   waitFor: ['compile-vertex-pipeline']
 
 timeout: 7200s  # 2 hour timeout
+options:
+  logging: CLOUD_LOGGING_ONLY

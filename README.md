@@ -1,51 +1,77 @@
-# Fraud-Finder
-End-to-end MLOps project using GCP for credit card fraud detection.
 
+# Fraud Finder – Credit Card Fraud Detection Pipeline
 
-#### Folder Descriptions
+Welcome to the official repository for **Fraud Finder**, our CSI-4150/5150 AI for IT Operations project. This end-to-end machine learning pipeline detects credit card fraud using Google Cloud's Vertex AI platform.
 
-- `data` – Dataset location (linked from GCS; not tracked in Git)
-- `scripts` – Python scripts for preprocessing, training, and prediction
-- `models` – Local model copies (for testing or demo without Cloud Run)
-- `infra` – Dockerfile, CI/CD configs, Terraform
-- `notebooks` – Prototyping or experimentation using Jupyter
-- `tests` – Unit and integration tests for pipeline components
-- `dashboard` – Looker Studio files or screenshots
-- `docs` – Changelogs, team notes, or planning
+## 📁 Project Structure
 
+- `.pipeline/` – Key steps in `.pipeline/cloudbuild.yaml`:
+  - Compiles the `vetexai_pipeline.py` file into a pipeline JSON
+  - Executes the pipeline on Vertex AI using a custom Docker image
+  - Pulls data directly from a GCS bucket
+  - Tracks logs through Cloud Logging
+- `dashboard/` – Looker Studio exports and visualizations
+- `data/` – Where your Kaggle dataset will be
+- `docker/` – Custom Docker image and container setup
+- `serving_model_code/` – Batch + immediate prediction model interface
+- `tests/` – Evaluation and unit tests
+- `vetexai_pipeline.py` – Main pipeline script that defines and runs the full ML flow
+- `XAI.ipynb` – Explainability notebook using SHAP
 
-## Cloning the Repo and Virtual Environment
+## 🚀 Pipeline Overview
+
+This repo contains an end-to-end pipeline that includes:
+
+- **Data Preprocessing** – Scaling, outlier handling, and feature engineering (e.g., extracting hour from time)
+- **Data Splitting** – Train, validation, and test splits with stratification
+- **Model Training** – XGBoost classifier tuned for imbalanced data
+- **Evaluation** – Confusion matrix, classification report, ROC AUC, and detailed visual summaries
+- **Batch Prediction** – Optional batch inference on test data using deployed model on Vertex AI
+- **Explainability** – SHAP-based XAI insights into model decision-making
+
+## 🧠 Key Technologies
+
+- **Vertex AI Pipelines** – Automates data flow and training steps
+- **XGBoost** – High-performing model for tabular fraud detection
+- **Docker + GCR** – Custom environments for portability
+- **Google Cloud Storage** – Handles datasets and model artifacts
+- **Looker Studio** – Dashboard for metric visualization
+- **Pub/Sub Simulation** – Real-time prediction setup simulated from batch data
+
+## 🧪 How to Run
+
+## 🧪 How to Run
+
+This pipeline is designed to run automatically using **Google Cloud Build**.
+
+To trigger it, use:
 
 ```bash
-##bash
-git clone https://github.com/Stinly/Fraud-Finder.git
-cd Fraud-Finder
-
-
-##### Virtual Enviroment for dependencies
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+gcloud builds submit --config=.pipeline/cloudbuild.yaml .
 ```
-## Accessing BigQuery Data (For Teammates)
 
-To access the project datasets:
+*Make sure to update your `PROJECT_ID`, `BUCKET_NAME`, and `REGION` in the vetexai_pipeline.py script if needed.*
 
-1. Make sure you've been added to the GCP project: `fraud-finder-454706`
-2. Open BigQuery in Google Cloud Console
-3. Navigate to dataset `fraud_data`
-4. Query tables: `train_data`, `validation_data`, `test_data`
+## 📊 Confusion Matrix (Evaluation Results)
 
-If you get a permissions error, message Austin to be added as a BigQuery Data Viewer.
+Our trained model's performance on the test set:
 
-## BigQuery Tables
+| Metric           | Value   |
+|------------------|---------|
+| True Negatives   | 56,859  |
+| True Positives   | 79      |
+| False Negatives  | 19      |
+| False Positives  | 5       |
 
-The following datasets have been created from `transactions_cleaned` using deterministic fingerprint-based splitting:
+![Confusion Matrix Table](dashboard/confusion_matrix_table.png)
 
-- `fraud_data.train_data` — 70% of the data, used for training
-- `fraud_data.validation_data` — 10%, used for hyperparameter tuning
-- `fraud_data.test_data` — 20%, used for final evaluation
+## 👥 Authors
 
-All datasets are stored in BigQuery under the GCP project: `fraud-finder-454706`.
+- Austin Wright  
+- Absalat Getachew  
+- Alekya Mothuri  
+- Raihan Khan
 
+---
 
+Feel free to open an issue or reach out if you need help accessing or understanding any part of the project.

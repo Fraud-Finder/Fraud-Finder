@@ -4,6 +4,23 @@ steps:
 #   entrypoint: 'bash'
 #   args: ['-c', 'echo "Listing workspace contents:" && ls -R /workspace']
 
+# Run Dataflow preprocessing job using your custom image
+- name: 'us-central1-docker.pkg.dev/ai-ops-class/my-repo-final/base-py-v1:latest'
+  id: 'run-dataflow-preprocessing'
+  entrypoint: 'python'
+  args: [
+    'dataflow_preprocessing.py',
+    '--input_file=gs://ai_ops_final_project25k/creditcard.csv',
+    '--output_train=gs://ai_ops_final_project25k/processed/train_data.csv',
+    '--output_validation=gs://ai_ops_final_project25k/processed/validation_data.csv',
+    '--output_test=gs://ai_ops_final_project25k/processed/test_data.csv',
+    '--output_preprocessors=gs://ai_ops_final_project25k/processed/preprocessors',
+    '--runner=DataflowRunner',
+    '--project=ai-ops-class',
+    '--region=us-central1',
+    '--temp_location=gs://ai_ops_final_project25k/temp'
+  ]
+
 # Compile Vertex AI pipeline using your custom image
 - name: 'gcr.io/ai-ops-class/my-test/my-image:v1'
   id: 'compile-vertex-pipeline'

@@ -1,3 +1,5 @@
+Link to project dashboard: https://lookerstudio.google.com/u/0/reporting/aafa6deb-7c88-48f6-97ae-04e2d1797b93/page/p_uarz070brd
+
 1. Dashboard Overview:
    
       •	Purpose: Monitor fraud detection model performance and transaction patterns

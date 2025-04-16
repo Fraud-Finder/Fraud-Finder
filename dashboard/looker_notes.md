@@ -53,7 +53,7 @@ Link to project dashboard: https://lookerstudio.google.com/u/0/reporting/aafa6de
       
       Accuracy-----99.96%-----Misleading (due to imbalance). The AI is mostly guessing legitimate transactions.
       
-      Precision-----94%/-----When the AI flags fraud, it’s 94% likely to be correct.
+      Precision-----94%-----When the AI flags fraud, it’s 94% likely to be correct.
       
       Recall-----80.6%-----AI catches 80.6% of all fraud cases.
       
